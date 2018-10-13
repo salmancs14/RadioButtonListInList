@@ -44,8 +44,6 @@ class VariantCategoryActivity : AppCompatActivity(), GetView {
     private fun getVariants() {
         if (ConnectionUtils.isNetConnected(this)) {
             disposable.add(variantCategoryViewModel.loadData(repository)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(
                                     {
                                         variantCategoryViewModel.handleSuccessResponse()

@@ -5,6 +5,8 @@ import android.databinding.ObservableField
 import com.repo.github.expandablelistviewtest.entity.Variants
 import com.repo.github.expandablelistviewtest.repository.VariantRepository
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class VariantCategoryViewModel : ViewModel() {
 
@@ -30,6 +32,7 @@ class VariantCategoryViewModel : ViewModel() {
 
     fun loadData(variantRepository: VariantRepository) : Single<Variants> {
         progressState.set(true)
-        return variantRepository.getVariantRepository()
+        return variantRepository.getVariantRepository().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
     }
 }
